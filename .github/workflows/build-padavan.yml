@@ -114,6 +114,21 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
         fi
         #########################################################################################
+        #Lemonade自定义
+        #########################################################################################
+        cd /opt/rt-n56u/trunk/user/shared
+        if [ ! -f defaults.h ] ; then
+        echo "defaults.h not found "
+        exit 1
+        fi
+        sed -i 's/192.168.2.1/192.168.1.1/g' defaults.h
+        sed -i 's/192.168.2.100/192.168.1.2/g' defaults.h
+        sed -i 's/192.168.2.244/192.168.1.250/g' defaults.h
+        sed -i 's/BOARD_PID "_%s"/"RoboMaster_2.4Ghz"/g' defaults.h
+        sed -i 's/BOARD_PID "_5G_%s"/"RoboMaster_5Ghz"/g' defaults.h
+        sed -i 's/1234567890/12345678/g' defaults.h
+        cd /opt/rt-n56u/trunk
+        #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
         #sed -i '/自定义项/d' .config
